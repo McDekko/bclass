@@ -14,3 +14,5 @@
     @endforeach
     <p>Total Posts: {{ $totalposts }}</p>
 @endsection
+
+{{-- test --}}
