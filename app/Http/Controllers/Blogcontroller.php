@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\post;
+use App\Models\Post;
 
 class BlogController extends Controller
 {
@@ -10,7 +10,7 @@ class BlogController extends Controller
     // halaman home isinya posts banyak
     public function home()
     {
-        $posts = Post::data();
+        $posts = Post::all();
         $totalposts = Post::count();
         return view('home', compact('posts', 'totalposts'));
     }
@@ -25,7 +25,7 @@ class BlogController extends Controller
     //halaman tentang
     public function about()
     {
-        $info = Post::aboutInfo();
+        $info = Post::first();
 
         return view('about', compact('info'));
     }
