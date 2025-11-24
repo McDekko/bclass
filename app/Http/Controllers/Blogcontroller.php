@@ -74,4 +74,13 @@ class BlogController extends Controller
 
         return redirect('/')->with('success', 'Post berhasil diperbarui!');
     }
+
+    // delete
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect('/')->with('success', 'Post berhasil dihapus!');
+    }
 }
