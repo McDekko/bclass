@@ -14,6 +14,23 @@
 
     <hr>
 
+    <form action="/" method="GET">
+        <input type="text" value="{{ request('search') }}" name="search" placeholder="cari title...">
+        <button type="submit">Cari</button>
+        @if($search ?? false)
+            <a href="/">clear</a>
+        @endif
+    </form>
+    
+
+    @if($search ?? false)
+        @if($posts->total() > 0)
+            <P>{{$posts->total()}} hasil pencarian untuk '{{ $search }}'</P>
+        @else
+            <P>Tidak ada hasil pencarian untuk '{{ $search }}'</P>
+        @endif
+    @endif
+
     @foreach ($posts as $post)
         <div>
             <h2>{{ $post->title }}</h2>
