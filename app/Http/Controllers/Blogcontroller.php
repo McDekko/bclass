@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    // seperti komponen tp bukan komponen halaman posts yg plural
-
     // halaman home isinya posts banyak
-    public function home()
+    public function home(Request $request)
     {
-        $posts = Post::all();
+        $search = $request->input('search');
+        $query = Post::query();
+
+        if ($search) {
+            $query->where(function ($antri) use ($search) {
+                $antri->where('title', 'like', '%' . $search . '%')
+                      ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        }
+
+        $posts = $query->latest()->paginate(5);
+        $posts->appends(['search' => $search]);
         $totalposts = Post::count();
-        return view('home', compact('posts', 'totalposts'));
+
+        return view('home', compact('posts', 'totalposts', 'search'));
     }
 
     // single kalo diklik satu2
